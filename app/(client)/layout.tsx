@@ -1,8 +1,5 @@
-import { Header } from '@/components'
-import '../styles/globals.css'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
+import { Header, Footer } from '@/components'
+import '../../styles/globals.css'
 
 export const metadata = {
   title: 'Ecommerce',
@@ -16,10 +13,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      
       <body className="main">
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   )
