@@ -1,8 +1,10 @@
-import React from 'react'
+import { AdminAddProduct } from "@components"
 
 const page = () => {
   return (
-    <div>page</div>
+    <>
+      <AdminAddProduct />
+    </>
   )
 }
 

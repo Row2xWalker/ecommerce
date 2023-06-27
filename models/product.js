@@ -13,9 +13,7 @@ const ProductSchema = new Schema({
         type:String,
         required: [true, 'Product Description is required'],
     },
-    image: {
-        type:String
-    },
+    images:[String],
     quantity: {
         type:Number,
         required: [true, 'Product Quantity is required'],
