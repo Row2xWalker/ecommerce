@@ -1,10 +1,10 @@
-import { Header } from '@/components'
 import React from 'react'
-import '../../styles/globals.css'
-const AdminLayout = ({
+import '@styles/globals.css'
+
+const RootLayout = ({
     children,
   }: {
-    children: React.ReactNode
+    children: React.ReactElement
   }) => {
   return (
     <html lang="en">
@@ -15,4 +15,4 @@ const AdminLayout = ({
   )
 }
 
-export default AdminLayout
+export default RootLayout
