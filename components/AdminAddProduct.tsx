@@ -16,14 +16,14 @@ interface IProductResponse {
   handleSubmit: Function
 }
 
-const AdminAddProduct = ({ product, submitting, setProduct, handleSubmit }: IProductResponse) => {  
+const AdminAddProduct = ({ product, submitting, setProduct, handleSubmit }: IProductResponse) => {
   const [imageSrc, setImageSrc] = useState();
   const [uploadData, setUploadData] = useState();
 
-  function handleOnChange(changeEvent:Event) {
+  function handleOnChange(changeEvent: Event) {
     const reader = new FileReader();
 
-    reader.onload = function(onLoadEvent) {
+    reader.onload = function (onLoadEvent) {
       setImageSrc(onLoadEvent.target.result);
       setUploadData(undefined);
     }
@@ -44,18 +44,18 @@ const AdminAddProduct = ({ product, submitting, setProduct, handleSubmit }: IPro
           placeholder="category"
           value={product.category}
           onChange={(e) => setProduct({ ...product, category: e.target.value })} />
-         <span className="font-bold">Description:</span><input type="text" name="description" id="description"
+        <span className="font-bold">Description:</span><input type="text" name="description" id="description"
           className="rounded-md w-[600px] px-4 py-2"
           placeholder="Description"
           value={product.description}
           onChange={(e) => setProduct({ ...product, description: e.target.value })} />
-         <span className="font-bold">Quantity:</span><input type="number" name="quantity" id="quantity"
-         className="rounded-md w-[600px] px-4 py-2"
-         placeholder="Quantity"
+        <span className="font-bold">Quantity:</span><input type="number" name="quantity" id="quantity"
+          className="rounded-md w-[600px] px-4 py-2"
+          placeholder="Quantity"
           value={product.quantity}
           onChange={(e) => setProduct({ ...product, quantity: e.target.value })} />
-           <span className="font-bold">Image:</span><input type="file" name="file"  onChange={handleOnChange}  className="rounded-md w-[600px] px-4 py-2 border bg-white " />
-          {imageSrc?(<Image src={imageSrc} alt="imageToBeUpload" height={200} width={200} />):(<></>)}
+        <span className="font-bold">Image:</span><input type="file" name="file" onChange={handleOnChange} className="rounded-md w-[600px] px-4 py-2 border bg-white " />
+        {imageSrc ? (<Image src={imageSrc} alt="imageToBeUpload" height={200} width={200} />) : (null)}
         <button type="submit" className="border border-black px-2 w-1/5">Add Product</button>
       </form>
     </div>

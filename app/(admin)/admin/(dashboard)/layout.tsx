@@ -8,7 +8,7 @@ export default function MainLayout({
     children: React.ReactElement
 }) {
     return (
-        <main className="grid grid-rows-1 grid-cols-6 bg-gray-100 h-screen w-screen">
+        <main className="grid grid-rows-1 grid-cols-11 bg-gray-100 h-screen w-screen">
             <aside className="col-span-1 bg-gray-600">
                 <nav className="text-white text-center text-xl pt-[150px]">
                     <div>Hi Admin!</div>
@@ -36,7 +36,7 @@ export default function MainLayout({
                     </ul>
                 </nav>
             </aside>
-            <section className="col-span-5 bg-blue-100">
+            <section className="col-span-10 bg-blue-100">
                 <div className='flex items-center h-full bg-gray-200'>
                     <div className="h-5/6 w-full">
                         {children}
