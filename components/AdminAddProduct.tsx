@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 
 interface IProductResponse {
@@ -12,60 +13,50 @@ interface IProductResponse {
   },
   submitting: boolean,
   setProduct: any,
-  handleSubmit: any
+  handleSubmit: Function
 }
 
-const AdminAddProduct = ({ product, submitting, setProduct, handleSubmit }: IProductResponse) => {
-  const [files, setFiles]: any = useState([]);
-  const [message, setMessage] = useState("")
-  const handleFile = (e: Event) => {
-    let file = e.target?.files
+const AdminAddProduct = ({ product, submitting, setProduct, handleSubmit }: IProductResponse) => {  
+  const [imageSrc, setImageSrc] = useState();
+  const [uploadData, setUploadData] = useState();
 
-    for (let i = 0; i < file.length; i++) {
-      const fileType = file[i]['type'];
-      const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
-      if (validImageTypes.includes(fileType)) {
-        setFiles([...files, file[i]]);
-      } else {
-        setMessage("only images accepted");
-      }
+  function handleOnChange(changeEvent:Event) {
+    const reader = new FileReader();
 
+    reader.onload = function(onLoadEvent) {
+      setImageSrc(onLoadEvent.target.result);
+      setUploadData(undefined);
     }
 
+    reader.readAsDataURL(changeEvent.target.files[0]);
   }
-
-  const removeImage = (i: string) => {
-    setFiles(files.filter(x => x.name !== i));
-  }
-
   return (
     <div>
-      <form className="flex flex-col w-3/5 gap-4 mx-auto rounded-md font-bold"
+      <form className="flex flex-col w-[800px] gap-4 mx-auto rounded-md"
         onSubmit={handleSubmit} encType="multipart/form-data">
-        Name: <input type="text" name="name" id="name"
+        <span className="font-bold">Name:</span> <input type="text" name="name" id="name"
+          className="rounded-md w-[600px] px-4 py-2"
+          placeholder="name"
           value={product.name}
           onChange={(e) => setProduct({ ...product, name: e.target.value })} />
-        Category: <input type="text" name="category" id="category"
+        <span className="font-bold">Category:</span><input type="text" name="category" id="category"
+          className="rounded-md w-[600px] px-4 py-2"
+          placeholder="category"
           value={product.category}
           onChange={(e) => setProduct({ ...product, category: e.target.value })} />
-        Description: <input type="text" name="description" id="description"
+         <span className="font-bold">Description:</span><input type="text" name="description" id="description"
+          className="rounded-md w-[600px] px-4 py-2"
+          placeholder="Description"
           value={product.description}
           onChange={(e) => setProduct({ ...product, description: e.target.value })} />
-        Quantity: <input type="number" name="quantity" id="quantity"
+         <span className="font-bold">Quantity:</span><input type="number" name="quantity" id="quantity"
+         className="rounded-md w-[600px] px-4 py-2"
+         placeholder="Quantity"
           value={product.quantity}
           onChange={(e) => setProduct({ ...product, quantity: e.target.value })} />
-        Image: <input type="file" name="images[]" id="images" multiple onChange={handleFile} />
-        <div className="flex flex-wrap gap-2 mt-2">
-          {files.map((file: any, key: string) => {
-            return (
-              <div key={key} className="overflow-hidden relative">
-                <i onClick={() => { removeImage(file.name) }} className="mdi mdi-close absolute right-1 hover:text-white cursor-pointer"></i>
-                <img className="h-20 w-20 rounded-md" src={URL.createObjectURL(file)} />
-              </div>
-            )
-          })}
-        </div>
-        <button type="submit" className="border border-black px-2">Add Product</button>
+           <span className="font-bold">Image:</span><input type="file" name="file"  onChange={handleOnChange}  className="rounded-md w-[600px] px-4 py-2 border bg-white " />
+          {imageSrc?(<Image src={imageSrc} alt="imageToBeUpload" height={200} width={200} />):(<></>)}
+        <button type="submit" className="border border-black px-2 w-1/5">Add Product</button>
       </form>
     </div>
   )

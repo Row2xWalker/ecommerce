@@ -11,14 +11,31 @@ const AddProductPage = () => {
     name: "",
     category: "",
     description: "",
-    images: [""],
+    images: [],
     quantity: 0
   })
 
   const addProduct = async (e: Event) => {
     e.preventDefault();
     setIsSubmitting(true);
+    //image upload:
+    const form = e.currentTarget
+    const fileInput = Array.from(form.elements).find(({ name })=>name==='file')
+    
+    const formData = new FormData();
 
+    for(const file of fileInput.files){
+      formData.append('file', file);
+    }
+
+    formData.append('upload_preset', 'Ecommerce_Application')
+    const data = await fetch('https://api.cloudinary.com/v1_1/digbmnogn/image/upload',{
+      method: 'POST',
+      body: formData
+    }).then(r=> r.json())
+    
+    product.images.push(data.url)
+    //product upload
     try {
       const response = await fetch('/api/product/new', {
         method: 'POST',

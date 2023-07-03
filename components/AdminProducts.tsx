@@ -63,40 +63,38 @@ const AdminProducts = () => {
   }, [])
 
   return (
-    <div className="h-full">
-      <Table aria-label="Product Table">
-        <Table.Header>
-          <Table.Column>PRODUCT NAME</Table.Column>
-          <Table.Column>CATEGORY</Table.Column>
-          <Table.Column>IMAGE</Table.Column>
-          <Table.Column>DESCRIPTION</Table.Column>
-          <Table.Column>QTY</Table.Column>
-          <Table.Column>SOLD</Table.Column>
-          <Table.Column>ACTION</Table.Column>
-          <Table.Column>ACTION</Table.Column>
-        </Table.Header>
-        <Table.Body items={products}>
-          {(product: IProduct) => (
-            <Table.Row key={product._id} >
-              <Table.Cell>{product.name}</Table.Cell>
-              <Table.Cell>{product.category}</Table.Cell>
-              <Table.Cell><CldImage alt="Product Image" width="150" height="150" src="https://res.cloudinary.com/digbmnogn/image/upload/v1687751727/cld-sample-5.jpg" /></Table.Cell>
-              <Table.Cell>{product.description}</Table.Cell>
-              <Table.Cell>{product.quantity}</Table.Cell>
-              <Table.Cell>{product.sold}</Table.Cell>
-              <Table.Cell>Delete</Table.Cell>
-              <Table.Cell>Edit</Table.Cell>
-            </Table.Row>
-          )}
-        </Table.Body>
-        <Table.Pagination
-          shadow
-          noMargin
-          align="center"
-          rowsPerPage={5}
-        />
-      </Table>
-    </div >
+    <>
+      {products.length > 0 && (
+      <table className="overflow-hidden bg-red-100">
+        <thead>
+        <tr>
+          <th>PRODUCT NAME</th>
+          <th>CATEGORY</th>
+          <th>IMAGE</th>
+          <th>DESCRIPTION</th>
+          <th>QTY</th>
+          <th>SOLD</th>
+          <th>ACTION</th>
+          <th>ACTION</th>
+        </tr>
+        </thead>
+        <tbody>
+            {products.map(product =>(
+              <tr key={product._id}>
+                <td>{product.name}</td>
+                <td>{product.category}</td>
+                <td><Image alt="Product Image" width={150} height={150} src={product.images[0]?product.images[0]:"/"} /></td>
+                <td>{product.description}</td>
+                <td>{product.quantity}</td>
+                <td>{product.sold}</td>
+                <td>Delete</td>
+                <td>Edit</td>
+            </tr>
+            ))}
+          </tbody>
+      </table>
+        )}
+    </>
   )
 }
 
