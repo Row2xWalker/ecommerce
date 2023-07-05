@@ -31,6 +31,11 @@ const ProductPage = () => {
     {
       header: 'Sold',
       accessorKey: 'sold'
+    },
+    {
+      header: 'Action',
+      accessorKey: '_id',
+      cell: row => <div><Link href={"/admin/products/"+row.getValue()}><span>View</span></Link><span>Edit</span><span>Delete</span></div>
     }
   ]
 

@@ -22,13 +22,13 @@ const AdminAddProduct = ({ product, submitting, setProduct, handleSubmit }: IPro
 
   function handleOnChange(changeEvent: Event) {
     const reader = new FileReader();
-
-    reader.onload = function (onLoadEvent) {
-      setImageSrc(onLoadEvent.target.result);
+    reader.onload = (onLoadEvent:Event) => {
+      const target:any = onLoadEvent.target as HTMLInputElement
+      setImageSrc(target.result)
       setUploadData(undefined);
     }
-
-    reader.readAsDataURL(changeEvent.target.files[0]);
+    const target= changeEvent.target as HTMLInputElement
+    target.files?.[0]? reader.readAsDataURL(target.files[0]):null;
   }
   return (
     <div>
@@ -54,8 +54,15 @@ const AdminAddProduct = ({ product, submitting, setProduct, handleSubmit }: IPro
           placeholder="Quantity"
           value={product.quantity}
           onChange={(e) => setProduct({ ...product, quantity: e.target.value })} />
-        <span className="font-bold">Image:</span><input type="file" name="file" onChange={handleOnChange} className="rounded-md w-[600px] px-4 py-2 border bg-white " />
-        {imageSrc ? (<Image src={imageSrc} alt="imageToBeUpload" height={200} width={200} />) : (null)}
+        <span className="font-bold">Image:</span><input type="file" name="file" onChange={handleOnChange} className="rounded-md w-[600px] px-4 py-2 border bg-white "/>
+        <div className="w-[600px] min-h-[150px]">
+        {imageSrc ? 
+          (
+            <Image src={imageSrc} alt="imageToBeUpload" height={150} width={150} className="mx-auto overflow-hidden" />
+          ) : 
+         <div className="mx-auto border border-black h-[150px] w-[150px]"></div>
+         }
+        </div>
         <button type="submit" className="border border-black px-2 w-1/5">Add Product</button>
       </form>
     </div>

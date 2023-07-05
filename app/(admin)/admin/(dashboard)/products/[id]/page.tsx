@@ -1,4 +1,5 @@
 "use client"
+import { AdminAddProduct } from "@components";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 const ProductPage = ({ params }: { params: any }) => {
@@ -17,26 +18,12 @@ const ProductPage = ({ params }: { params: any }) => {
     }, [params.id])
 
     return (
-        <div>
-            <div>
-                {products.name}
-            </div>
-            <div>
-                {products.category}
-            </div>
-            <div>
-                {products.images}
-            </div>
-            <div>
-                {products.description}
-            </div>
-            <div>
-                {products.quantity}
-            </div>
-            <div>
-                {products.sold}
-            </div>
-        </div>
+        <AdminAddProduct
+        product={products}
+        setProduct={setProducts}
+        handleSubmit={()=> "dummy"}
+        submitting={false}
+      />
     )
 }
 
