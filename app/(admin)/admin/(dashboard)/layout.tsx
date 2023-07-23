@@ -1,13 +1,38 @@
 "use client"
 
 import AdminSideBar from "@components/AdminSideBarLink";
-
+import { getProviders, signOut, signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react"
 export default function MainLayout({
     children,
 }: {
     children: React.ReactElement
 }) {
+
+    const router = useRouter();
+    const [providers, setProviders] = useState(null);
+
+    const { data: session, status } = useSession({
+        required: true,
+        onUnauthenticated() {
+            if (providers) signIn(providers.google.id)
+        }
+    });
+
+    useEffect(() => {
+        (async () => {
+            const res = await getProviders();
+            setProviders(res);
+        })();
+    }, []);
+
+
+    if (!session) {
+        return (<></>)
+    }
     return (
+
         <main className="grid grid-rows-1 grid-cols-11 bg-gray-100 h-screen w-screen">
             <aside className="col-span-1 bg-gray-600">
                 <nav className="text-white text-center text-xl pt-[150px]">
@@ -29,9 +54,12 @@ export default function MainLayout({
                             </AdminSideBar>
                         </li>
                         <li>
-                            <AdminSideBar href="/admin/login">
+                            <button className="hover:bg-gray-100 hover:text-black p-2 rounded block text-sm text-white w-full"
+                                onClick={() => signOut({
+                                    callbackUrl: `/admin`
+                                })}>
                                 Logout
-                            </AdminSideBar>
+                            </button>
                         </li>
                     </ul>
                 </nav>

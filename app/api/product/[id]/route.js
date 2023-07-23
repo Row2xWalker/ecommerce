@@ -1,49 +1,53 @@
-import {connectToDB} from '@utils/database'
-import Product from '@models/product'
+import { connectToDB } from "@utils/database";
+import Product from "@models/product";
 
 // GET (read)
-export const GET = async (request, {params}) => {
-    try{
-        await connectToDB()
+export const GET = async (request, { params }) => {
+  try {
+    await connectToDB();
 
-        const product = await Product.findById(params.id).populate('name')
-        if(!product) return new Response("Product not found", {status:404});
+    const product = await Product.findById(params.id).populate("name");
+    if (!product) return new Response("Product not found", { status: 404 });
 
-        return new Response(JSON.stringify(product), {status:200})
-    }catch (error){
-        return new Response("Failed to fetch all products",{ status:500 })
-    }
-}
+    return new Response(JSON.stringify(product), { status: 200 });
+  } catch (error) {
+    return new Response("Failed to fetch all products", { status: 500 });
+  }
+};
 // // PATCH (update)
-// export const PATCH = async(request, {params}) => {
-//     const {prompt, tag} = await request.json();
+export const PATCH = async (request, { params }) => {
+  const { name, category, description, images, quantity, price } =
+    await request.json();
 
-//     try{
-//         await connectToDB();
+  try {
+    await connectToDB();
 
-//         const existingPrompt = await Prompt.findById(params.id);
+    const existingProduct = await Product.findById(params.id);
 
-//         if(!existingPrompt) return new Response("Prompt not Found", {status:404})
-//         existingPrompt.prompt = prompt;
-//         existingPrompt.tag = tag;
+    if (!existingProduct)
+      return new Response("Product not Found", { status: 404 });
+    existingProduct.name = name;
+    existingProduct.category = category;
+    existingProduct.description = description;
+    existingProduct.images = images;
+    existingProduct.quantity = quantity;
+    existingProduct.price = price;
 
-//         await existingPrompt.save();
+    await existingProduct.save();
 
-//         return new Response(JSON.stringify(existingPrompt), {status:200})
-//     }catch (error) {
-
-//     }
-// }
+    return new Response(JSON.stringify(existingProduct), { status: 200 });
+  } catch (error) {}
+};
 // DELETE (delete)
 
-export const DELETE = async(request, {params}) => {
-    try{
-        await connectToDB();
+export const DELETE = async (request, { params }) => {
+  try {
+    await connectToDB();
 
-        await Prompt.findByIdAndRemove(params.id);
+    await Product.findByIdAndRemove(params.id);
 
-        return new Response("Product deleted successfully", {status: 200})
-    }catch (error){
-        return new Response("Failed to delete product", {status: 500})
-    }
-}
+    return new Response("Product deleted successfully", { status: 200 });
+  } catch (error) {
+    return new Response("Failed to delete product", { status: 500 });
+  }
+};

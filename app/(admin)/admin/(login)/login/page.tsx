@@ -1,23 +1,36 @@
-import { ReactElement } from "react"
+"use client"
+
+import { useState, useEffect } from "react"
+import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 
 const LoginPage = () => {
+  const { status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      signIn(providers.google.id)
+    }
+  });
+  const router = useRouter();
+  const [providers, setProviders] = useState(null);
+  const [toggleDropdown, setToggleDropdown] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      const res = await getProviders();
+      setProviders(res);
+    })();
+  }, []);
+
+
   return (
-    <div>   <div className="flex mx-auto h-screen items-center justify-center border border-black">
-    <div className="h-[500px] w-[500px]">
-      <form className="flex flex-col gap-4 items-center h-full w-full justify-center font-bold">
-        <span className="mx-auto">
-          Username:
-          <input className="" />
-        </span>
-        <span className="mx-auto">
-          Password: 
-          <input  />
-        </span>
-        <button className="border border-black w-1/5 mx-auto">Login</button>
-      </form>
+
+    <div className="flex mx-auto h-screen items-center justify-center">
+      <button onClick={signOut({
+        callbackUrl: `${window.location.origin}/admin`
+      })}> Sign Out</button>
     </div>
-  </div></div>
   )
 }
 
