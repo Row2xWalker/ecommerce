@@ -1,6 +1,5 @@
 "use client"
-import { CategoryBar, ProductLists } from '@/components'
-import { useRouter } from 'next/navigation'
+import { ProductLists } from '@/components'
 import { useEffect, useState } from 'react'
 
 export default function Home() {
@@ -16,12 +15,8 @@ export default function Home() {
     fetchProducts()
   }, [])
 
-  const handleOnClick = () => {
-
-  }
-
   return (
-    <main className="min-h-[1080px] ">
+    <main className="h-min-screen bg-white w-[990px] mx-auto">
       <ProductLists products={products} />
     </main>
   )

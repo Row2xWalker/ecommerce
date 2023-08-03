@@ -1,15 +1,13 @@
-import React from 'react'
+
 
 const SearchBar = () => {
 
 
   return (
-    <div>
-      <form>
-        <input type="text" name="search" id="search" placeholder="Search..." className="w-[200px] px-2 rounded-md h-[35px]" />
-        <button className="px-4 text-white border border-black rounded-md h-[35px]">Search</button>
-      </form>
-    </div>
+    <form className="w-[450px] h-[30px] border rounded-md">
+      <input type="text" name="search" id="search" placeholder="Search..." className="h-full w-5/6 px-2 " />
+      <button className="w-1/6 text-white  h-full ">Search</button>
+    </form>
   )
 }
 
