@@ -1,8 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
+
+
+
 const ItemCard = ({ productDetails }) => {
   return (
-    <div className="bg-white  border ">
+    <div className="bg-white border ">
       <div className=" hover:cursor-pointer group" >
         <Link href={`products?id=${productDetails._id}`}>
           <Image src={productDetails.images[0]} alt="" width={200} height={200} className="group-hover:text-blue-600 group-hover:underline hover:scale-105 min-h-[300px] max-h-[300px] mx-auto pt-4" />

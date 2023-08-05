@@ -16,8 +16,11 @@ export default function Home() {
   }, [])
 
   return (
-    <main className="h-min-screen bg-white w-[990px] mx-auto">
-      <ProductLists products={products} />
+    // <main className="h-min-screen bg-white w-[990px] mx-auto">
+    <main className="h-min-screen flex items-center justify-center">
+      <div className="h-min-screen bg-white p-4 shadow-md rounded-md w-2/5">
+        <ProductLists products={products} />
+      </div>
     </main>
   )
 }

@@ -24,7 +24,7 @@ const CartPage = () => {
 
         // Update the cart items in local storage
         updateCartInLocalStorage(cartItems.map((item) => (item.cartItem.id === itemId ? { ...item, quantity: newQuantity, total: newTotalPrice } : item)));
-        calculateTotal();
+        calculateSubTotal();
     };
 
     const handleQuantityChange = (itemId, event) => {
@@ -83,7 +83,7 @@ const CartPage = () => {
                         <div className="w-[200px]">Quantity</div>
                         <div className="w-[100px] text-right">Total</div>
                     </div>
-                    {cartItems.map((cartItem) => (
+                    {cartItems?.map((cartItem) => (
                         <div className="flex py-2" key={cartItem.cartItem.id}>
                             <div className="flex w-[600px]">
                                 <Image src={cartItem.cartItem.images[0]} alt="cartlist-item" width={100} height={100} className="rounded" />
