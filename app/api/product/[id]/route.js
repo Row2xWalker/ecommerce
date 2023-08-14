@@ -16,7 +16,7 @@ export const GET = async (request, { params }) => {
 };
 // // PATCH (update)
 export const PATCH = async (request, { params }) => {
-  const { name, category, description, images, quantity, price } =
+  const { name, category, description, images, stocks, price } =
     await request.json();
 
   try {
@@ -30,7 +30,7 @@ export const PATCH = async (request, { params }) => {
     existingProduct.category = category;
     existingProduct.description = description;
     existingProduct.images = images;
-    existingProduct.quantity = quantity;
+    existingProduct.stocks = stocks;
     existingProduct.price = price;
 
     await existingProduct.save();

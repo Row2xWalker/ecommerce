@@ -1,27 +1,37 @@
 "use client"
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import SearchBar from './SearchBar'
 import Link from 'next/link'
-
+import { useCartContext } from '@contexts/CartContext'
 const Header = () => {
-  const [cart, setCart] = useState([])
+  const { cartItems } = useCartContext();
 
-  useEffect(() => {
-    const data = window.localStorage.getItem("Cart")
-    if (data !== null) setCart(JSON.parse(data))
-    console.log("useEffect", data)
-  }, [])
   return (
-    <header className="w-screen bg-blue-700 h-24">
-      <div className="max-w-[990px] flex items-center justify-between mx-auto h-full px-4">
+    <header className="flex-none w-screen bg-gray-900 h-24 text-white">
+      <div className="w-full md:w-1/2 flex items-center justify-between mx-auto h-full px-4">
         <Link href="/">
-          <span className="text-xl font-bold text-white">Ecommerce</span>
+          <span className="text-xl font-bold">JnP Store</span>
         </Link>
         <SearchBar />
-        <nav className="flex list-none h-full items-center text-center text-white">
-          <Link href="/cart"><li className=" hover:cursor-pointer " >Cart<span className="bg-gray-100 rounded-full text-black px-1 text-sm ml-1">{cart ? cart.length : 0}</span></li></Link>
+        <nav className="hidden md:flex items-center space-x-4">
+          <Link href="/cart" className="hover:text-white">
+            <div className="flex items-center space-x-1 cursor-pointer">
+              <span>Cart</span>
+              <span className="bg-gray-400 rounded-full border border-white px-1 text-sm">
+                {cartItems.length}
+              </span>
+            </div>
+          </Link>
         </nav>
+        <div className="md:hidden flex items-center space-x-4">
+          <Link href="/cart" className="text-gray-400 hover:text-white">
+            Cart
+            <span className="bg-gray-400 rounded-full border border-white px-1 text-sm ml-1">
+              {cartItems.length}
+            </span>
+          </Link>
+        </div>
       </div>
     </header>
   )

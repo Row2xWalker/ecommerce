@@ -4,23 +4,29 @@ import { useEffect, useState } from 'react'
 
 export default function Home() {
   const [products, setProducts] = useState([])
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchProducts = async () => {
       const response = await fetch('/api/product');
       const data = await response.json();
       setProducts(data)
+      setIsLoading(false)
     }
 
     fetchProducts()
   }, [])
 
   return (
-    // <main className="h-min-screen bg-white w-[990px] mx-auto">
-    <main className="h-min-screen flex items-center justify-center">
-      <div className="h-min-screen bg-white p-4 shadow-md rounded-md w-2/5">
-        <ProductLists products={products} />
-      </div>
-    </main>
+    <>
+      {isLoading ?
+        (<div className="h-screen flex justify-center items-center">
+          <div className="pulsating-circle bg-gray-800 h-16 w-16 rounded-full animate-pulse">
+          </div>
+        </div>)
+        : (<ProductLists products={products} />)
+      }
+    </>
   )
+
+  // : ()
 }
