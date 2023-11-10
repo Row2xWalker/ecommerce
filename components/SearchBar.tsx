@@ -2,10 +2,8 @@
 import { useSearchContext } from "@contexts/SearchContext"
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-useRouter
-const SearchBar = () => {
+const SearchBar = ({toggle}) => {
   // const { handleSearchChange } = useSearchContext();
-  
   const searchParams = useSearchParams();
   const search = searchParams.get('search');
 
@@ -28,7 +26,7 @@ const SearchBar = () => {
   };
 
   return (
-    <form className="w-[450px] h-[30px] border rounded-md hidden md:block ">
+    <form className={`"flex-initial h-2/5 border rounded-md  ${toggle} "`}>
       <input type="text" placeholder="Search..." className="h-full w-5/6 px-2 text-black" onChange={handleInputChange} value={searchInput} />
       <button onClick={handleSearchButtonClick} className="w-1/6 text-white  h-full ">Search</button>
     </form>

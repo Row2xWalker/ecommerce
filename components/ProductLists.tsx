@@ -1,27 +1,8 @@
-"use client"
-
-import { useEffect, useState } from 'react';
 import ItemCard from './ItemCard'
-import { useSearchContext } from '@contexts/SearchContext'
-import { useSearchParams } from 'next/navigation';
-
 const ProductLists = ({ products = [] }) => {
-  // const { filteredProducts } = useSearchContext();
-
-  
-
-  
-  
-
   return (
-    <section className="grid grid-cols-1 md:grid-cols-3">
-      {/* {filteredProducts
-        ? filteredProducts.map((productItem) => (<ItemCard productDetails={productItem} key={productItem._id} />))
-        : products.map((product) => (
-          (<ItemCard productDetails={product} key={product._id} />)
-        ))
-      } */
-      
+    <section className="grid grid-cols-2 md:grid-cols-4 gap-2">
+      {
       products.map((product) => (
         (<ItemCard productDetails={product} key={product._id} />)
       ))}

@@ -1,35 +1,36 @@
 "use client"
-import { useContext, useEffect, useState } from 'react'
-
 import SearchBar from './SearchBar'
 import Link from 'next/link'
 import { useCartContext } from '@contexts/CartContext'
+import { AiOutlineSearch, AiOutlineShoppingCart } from 'react-icons/ai'
+import { useState } from 'react'
 const Header = () => {
   const { cartItems } = useCartContext();
-
+  const [searchBarToggle, setSearchBarToggle] = useState(false);
   return (
-    <header className="flex-none w-screen bg-gray-900 h-24 text-white">
-      <div className="w-full md:w-1/2 flex items-center justify-between mx-auto h-full px-4">
+    <header className="bg-gray-900 h-24 text-white">
+      <div className="2xl:w-1/2 flex items-center justify-between mx-auto h-full px-4">
         <Link href="/">
-          <span className="text-xl font-bold">JnP Store</span>
+          <span className={`text-xl font-bold ${searchBarToggle ? "md:block hidden" : null}`}>JnP Store</span>
         </Link>
-        <SearchBar />
+        <SearchBar toggle={searchBarToggle ? "w-full md:w-1/2 " : "md:block w-1/2 hidden"} />
         <nav className="hidden md:flex items-center space-x-4">
-          <Link href="/cart" className="hover:text-white">
+          <Link href="/cart" className="hover:text-white hover:text-gray-400">
             <div className="flex items-center space-x-1 cursor-pointer">
-              <span>Cart</span>
-              <span className="bg-gray-400 rounded-full border border-white px-1 text-sm">
+              <AiOutlineShoppingCart size="24px" />
+              <span className="rounded-full border border-white px-2 text-sm">
                 {cartItems.length}
               </span>
             </div>
           </Link>
         </nav>
+        {/* if mobile */}
         <div className="md:hidden flex items-center space-x-4">
+          <button className="pl-2 text-gray-400 hover:text-white rounded-md" onClick={() => { setSearchBarToggle(!searchBarToggle) }}>
+            <AiOutlineSearch size="24px" />
+          </button>
           <Link href="/cart" className="text-gray-400 hover:text-white">
-            Cart
-            <span className="bg-gray-400 rounded-full border border-white px-1 text-sm ml-1">
-              {cartItems.length}
-            </span>
+            <AiOutlineShoppingCart size="24px" />
           </Link>
         </div>
       </div>
