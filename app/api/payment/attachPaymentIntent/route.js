@@ -16,7 +16,7 @@ export const POST = async (req) =>{
               attributes: {
                   client_key: paymentIntentClientKey,
                   payment_method: paymentMethodId,
-                  return_url: "https://localhost:3000/checkout"
+                  return_url: "http://localhost:3000/payment"
               }
           }
       })

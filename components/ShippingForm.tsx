@@ -1,18 +1,21 @@
-import React from 'react'
+const ShippingForm = ({handleShippingFormSubmit, handleShippingFormChange}) => {
 
-const ShippingForm = () => {
+  const inputStyle = "appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
   return (
     <div>
         <h1 className="text-xl pb-4">Delivery Information</h1>
-        <form className="px-8 pt-6 pb-8 mb-4">
+        <form className="px-8 pt-6 pb-8 mb-4" onSubmit={handleShippingFormSubmit}>
           <div className="flex gap-2">
             <div className="mb-4">
               <label htmlFor="fullName" className="inline-block text-gray-700 font-bold mb-2">Full Name</label>
               <input
               type="text"
-              id="Full Name"
+              id="fullName"
+              name="fullName"
               placeholder="Enter your name"
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={inputStyle}
+              required
+              onChange={handleShippingFormChange}
               />
             </div>
             <div className="mb-4">
@@ -20,8 +23,10 @@ const ShippingForm = () => {
               <input
               type="text"
               id="phone"
+              name="phone"
               placeholder="Enter your phone"
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={inputStyle}
+              onChange={handleShippingFormChange}
               />
             </div>
           </div>
@@ -30,8 +35,10 @@ const ShippingForm = () => {
               <input
               type="text"
               id="address"
+              name="address"
               placeholder="Enter your address"
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={inputStyle}
+              onChange={handleShippingFormChange}
               />
           </div>  
           <div className="flex gap-2">
@@ -40,8 +47,10 @@ const ShippingForm = () => {
               <input
               type="text"
               id="postalCode"
+              name="postalCode"
               placeholder="Postal Code"
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={inputStyle}
+              onChange={handleShippingFormChange}
               />
             </div>
             <div className="mb-4">
@@ -49,8 +58,10 @@ const ShippingForm = () => {
               <input
               type="text"
               id="city"
+              name="city"
               placeholder="Enter your City"
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={inputStyle}
+              onChange={handleShippingFormChange}
               />
             </div>
           </div>
@@ -59,10 +70,15 @@ const ShippingForm = () => {
             <input
             type="text"
             id="region"
+            name="region"
             placeholder="Enter your region"
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className={inputStyle}
+            onChange={handleShippingFormChange}
             />
           </div>
+          <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Proceed to Payment
+        </button>
         </form>
     </div>
   )

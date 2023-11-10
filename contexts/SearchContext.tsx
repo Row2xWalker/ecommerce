@@ -9,7 +9,6 @@ export function useSearchContext() {
 
 export function SearchProvider({ children }) {
     const [searchQuery, setSearchQuery] = useState('');
-
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
     // Replace the 'products' array with your actual product data

@@ -1,15 +1,28 @@
 "use client "
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import iFrame from "./PaymentIframe";
+import PaymentIframe from "./PaymentIframe";
+import { useRouter } from "next/navigation";
 
 
 const GCash = ({ amount, description }) => {
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
-
+    const router = useRouter();
     const [payProcess, setPayProcess] = useState("");
     const [paymentStatus, setPaymentStatus] = useState("");
+    const [isModalOpen, setModalOpen] = useState(false);
+    const [modalUrl, setModalUrl] = useState("")
+
+    const openModal = () => setModalOpen(true);
+    const closeModal = () => setModalOpen(false);
+
+
+
+
+
     
     // Function to trigger payment process
     const createPayment = async () => {
@@ -49,57 +62,53 @@ const GCash = ({ amount, description }) => {
     }
 
   // Function to Listen to the Source in the Front End
-  const listenToPayment = async (sourceId) => {
+  const listenToPayment = async (paymentIntentId) => {
     let i = 5;
     for (let i = 5; i > 0; i--) {
       setPaymentStatus(`Listening to Payment in ${i}`)
       await new Promise(resolve => setTimeout(resolve, 1000))
       if (i == 1) {
-        const sourceData = await fetch('/api/payment/' + sourceId)
-        const resSourceData = await sourceData.json();
+        const data = await fetch('/api/payment/getPaymentIntent/' + paymentIntentId)
+        const jsonData = await data.json();
 
-        if (resSourceData.attributes.status === "failed") {
-          setPaymentStatus("Payment Failed")
+        if (jsonData.data?.attributes.status === "succeeded") {
+           setPaymentStatus("Payment Success")
+           closeModal();
         }
-        else if (resSourceData.attributes.status === "paid") {
-          setPaymentStatus("Payment Success")
-        }
+        // else if (jsonData.data?.attributes.status === "paid") {
+            // ***failed****
+        // }
         else {
           i = 5;
-          setPayProcess(resSourceData.attributes.status)
+          setPayProcess(jsonData.data?.attributes.status)
         }
       }
     }
   }
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: Event) => {
     e.preventDefault();
     const payment = await createPayment();
     const paymentData = await payment.json();
 
-    console.log(paymentData)
-    window.open(
-      paymentData.data.attributes.next_action.redirect.url, "_blank"
-    );
-    // listenToPayment(sourceData.data.id)
-
-    // pop up
-    // const newWindow = window.open(
-    //   sourceData.data.attributes.redirect.checkout_url, "_blank", "width=500,height=500"
-    // );
-    
-    // listenToPayment(sourceData.data.id);
-    
-    // if (newWindow) {
-    //   newWindow.focus();
-    // } else {
-    //   // Handle if the pop-up blocker prevents the new window from opening
-    //   alert('Please allow pop-ups for this website to proceed with the payment.');
-    // }
+    const paymentIntentStatus = paymentData.data.attributes.status;
+    if (paymentIntentStatus === 'awaiting_next_action') {
+      // Render your modal for 3D Secure Authentication since next_action has a value. You can access the next action via paymentIntent.attributes.next_action.
+      router.push(paymentData.data.attributes.next_action.redirect.url);
+      // openModal();
+      // listenToPayment(paymentData.data.id) 
+    } else if (paymentIntentStatus === 'succeeded') {
+      // You already received your customer's payment. You can show a success message from this condition.
+    } else if(paymentIntentStatus === 'awaiting_payment_method') {
+      // The PaymentIntent encountered a processing error. You can refer to paymentIntent.attributes.last_payment_error to check the error and render the appropriate error message.
+    }  else if (paymentIntentStatus === 'processing'){
+      // You need to requery the PaymentIntent after a second or two. This is a transitory status and should resolve to `succeeded` or `awaiting_payment_method` quickly.
+    }
   };
 
   return (
     <div>
+      {/* {isModalOpen && <PaymentIframe modalUrl={modalUrl} />} */}
       <form className="px-8 pt-6 pb-8 mb-4" onSubmit={onSubmit}>
         <div className="flex gap-2">
           <div className="mb-4">

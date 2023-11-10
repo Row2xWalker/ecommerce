@@ -1,19 +1,30 @@
 "use client"
 import { useSearchContext } from "@contexts/SearchContext"
-import { useState } from "react";
-
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+useRouter
 const SearchBar = () => {
-  const { handleSearchChange } = useSearchContext();
+  // const { handleSearchChange } = useSearchContext();
+  
+  const searchParams = useSearchParams();
+  const search = searchParams.get('search');
 
+  useEffect(() => {
+    if (!search) {
+      setSearchInput('');
+    }
+  }, [search]);
+  
   const [searchInput, setSearchInput] = useState('');
-
+  const router = useRouter();
   const handleInputChange = (e) => {
     setSearchInput(e.target.value);
   };
 
   const handleSearchButtonClick = (e) => {
     e.preventDefault()
-    handleSearchChange(searchInput);
+    router.push(`/?search=${searchInput}`);
+    // handleSearchChange(searchInput);
   };
 
   return (

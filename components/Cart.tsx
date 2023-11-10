@@ -1,8 +1,9 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import CircumIcon from "@klarr-agency/circum-icons-react"
-
+import CircumIcon from "@klarr-agency/circum-icons-react";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { AiOutlineDelete } from 'react-icons/ai';
 const Cart = ({ item, removeFromCart, increaseQuantity, decreaseQuantity, }) => {
 
     return (
@@ -26,7 +27,7 @@ const Cart = ({ item, removeFromCart, increaseQuantity, decreaseQuantity, }) => 
                         <button className="border-l px-2" onClick={() => increaseQuantity(item.cartItem._id)}>+</button>
 
                     </div>
-                    <button className="px-2" onClick={() => removeFromCart(item.cartItem._id)}> <CircumIcon name="trash" color="red" size="24px" /> </button>
+                    <button className="px-2" onClick={() => removeFromCart(item.cartItem._id)}> <AiOutlineDelete name="trash" color="red" size="24px" /> </button>
                 </div>
             </div>
             <div className="w-[100px] pt-8 text-right">Php {item.total}</div>

@@ -14,9 +14,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <SearchProvider>
       <html lang="en">
-        <body className="font-sans main min-h-screen flex flex-col bg-gray-100 text-gray-700 overflow-x-hidden">
+        <body className="flex flex-col bg-gray-100 text-gray-700 overflow-x-hidden font-sans main min-h-screen">
           <CartProvider>
             <Header />
             <main className="flex-1 md:w-1/2 mx-auto py-8">
@@ -26,6 +25,5 @@ export default function RootLayout({
           </CartProvider>
         </body>
       </html>
-    </SearchProvider>
   )
 }
