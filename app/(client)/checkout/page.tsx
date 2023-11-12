@@ -36,24 +36,11 @@ const CheckOutPage = () => {
     const handleShippingFormSubmit = (e: Event) =>{
         e.preventDefault();
         setStatus('payment');
-        localStorage.setItem('checkOutDetails', JSON.stringify(checkOutDetails))
-        
-        // try {
-        //     const parFormData = await fetch('/api/propertyacknowledgement/new', {
-        //         "method": 'post',
-        //         "Content-Type": "application/json",
-        //         "body": JSON.stringify(formDataToSubmit)
-        //     })
-        //     // const parFormJsonData = await parFormData.json();
-        // } catch (err) {
-        //     throw new Error("Failed saving PAR request", { status: 401 })
-        // }
-
-        // router.push("/records/par");
+        localStorage.setItem('checkOutDetails', JSON.stringify(checkOutDetails))        
     }
 
     return (
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-1 md:grid-cols-2">
             <section className="">
                 <ShippingForm handleShippingFormSubmit={handleShippingFormSubmit} handleShippingFormChange={handleShippingFormChange} />
                 {status=="payment" && (<><fieldset className="my-2">
@@ -93,15 +80,17 @@ const CheckOutPage = () => {
             <section className="border-l h-full px-4">
                 <h1 className="text-xl pb-4 mb-4">Order Summary</h1>
                 {cartItems?.map((item) => (
-                    <div className="flex items-center justify-between py-2" key={item.cartItem.id}>
-                    <div className="flex items-center space-x-4">
-                        <Image src={item.cartItem.images[0]} alt={item.cartItem.description} width={80} height={80} />
-                        <div>
-                        <p className="font-semibold">{item.cartItem.name}</p>
-                        <p>qty: {item.cart_quantity}</p>
+                    <div className="flex items-center justify-between py-2" key={item.cartItem._id}>
+                        <div className="flex items-center space-x-4">
+                            <div className="relative w-32 h-32">
+                                <Image src={item.cartItem.images[0]} alt={item.cartItem.description} fill sizes="100vh" />
+                            </div>
+                            <div>
+                            <p className="font-semibold">{item.cartItem.name}</p>
+                            <p>qty: {item.cart_quantity}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div className="font-semibold">Php {item.total}</div>
+                        <div className="font-semibold">Php {item.total}</div>
                     </div>
                 ))}
 

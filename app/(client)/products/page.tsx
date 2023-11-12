@@ -64,24 +64,26 @@ const ProductPage = () => {
 
   return (
     <>
-      <div className="flex py-8">
-        <div className="w-2/3">
-          <div className="relative h-[600px] w-[800px]"> {productItem.images.length > 0 ? (
-            <Image src={renderImage || productItem.images[0]} fill={true} alt="product image" />
+      <div className="xl:flex md:py-8">
+        <div className="w-full">
+          <div className="relative h-[300px] md:h-[600px]"> {productItem.images.length > 0 ? (
+            <Image src={renderImage || productItem.images[0]}  alt="product image" fill sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'  />
           ) : null}
           </div>
-          <div className="flex  mt-2 space-x-2 w-[800px]">
-            {productItem.images.map((image, index) => (
-              <div className="relative h-[180px] w-[165px] my-2 hover:cursor-pointer hover:scale-105" key={index}>
-                <Image src={image} fill={true} alt="product image" onClick={() => handleImageClick(image)} />
+          <div className="flex  mt-2 space-x-2 ">
+            {productItem.images.map((image, index) => {
+              if(index<5){
+              return(
+              <div className="relative h-[150px] w-[165px] my-2 hover:cursor-pointer hover:scale-105" key={index}>
+                <Image src={image} alt="product-image" onClick={() => handleImageClick(image)}  fill sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw' />
               </div>
-            ))}
+            )}})}
           </div>
         </div>
-        <div className=" w-1/3">
-          <h1 className="text-4xl font-bold ">{productItem?.name}</h1>
+        <div className="md:w-1/2 md:pl-4">
+          <h1 className="text-2xl font-bold ">{productItem?.name}</h1>
           <h1>{productItem?.category}</h1>
-          <h1 className="text-3xl font-bold pt-4">Php {productItem?.price}</h1>
+          <h1 className="text-2xl font-bold pt-4">Php {productItem?.price}</h1>
           <h1 className="py-4"><span className="font-bold">Stocks:</span> {productItem.stocks}</h1>
           <hr />
           <div className="flex gap-4 py-4">

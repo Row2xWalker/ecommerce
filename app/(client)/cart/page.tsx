@@ -24,12 +24,12 @@ const CartPage = () => {
         )
     }
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <section className="bg-white shadow-md rounded-md p-8 col-span-2">
-                <h1 className="`font-bold text-4xl` mb-6">Your Cart</h1>
+        <div className="grid grid-cols-1 2xl:grid-cols-3 lg:gap-2">
+            <section className="bg-white shadow-md rounded-md p-4 md:p-8 col-span-2">
+                <h1 className="font-bold text-2xl mb-6">Your Cart</h1>
                 <div className="flex font-bold mb-4">
                     <div className="flex-1">Product</div>
-                    <div className="w-64 text-center">Quantity</div>
+                    <div className="hidden md:block text-center">Quantity</div>
                     <div className="w-32 text-right">Total</div>
                 </div>
 
@@ -43,12 +43,12 @@ const CartPage = () => {
                     />
                 ))}
             </section>
-            <section className=" lg:sticky top-8">
-                <div className="bg-white shadow-md rounded-md p-8 max-h-[calc(100vh-200px)] overflow-y-auto">
+            <section className="lg:sticky top-8">
+                <div className="w-full bg-white shadow-md rounded-md p-4 md:p-8 max-h-[calc(100vh-200px)] overflow-y-auto">
                     <h2 className="font-semibold text-xl mb-2">Order Instructions</h2>
                     <textarea className="border rounded-md w-full h-20 resize-none px-2 mb-4"></textarea>
                     <div className="mb-4">
-                        <span className="font-semibold text-xl">Subtotal:</span> {subTotal}
+                        <span className="font-semibold text-xl">Subtotal: </span><span>&#8369;</span>{subTotal}
                     </div>
                     <div className="flex">
                         <button onClick={onCheckOut} className="bg-blue-500 text-white h-12 px-8 border rounded-md transition duration-300 ease-in-out hover:bg-blue-600">

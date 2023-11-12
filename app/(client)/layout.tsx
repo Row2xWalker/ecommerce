@@ -17,7 +17,7 @@ export default function RootLayout({
         <body className="flex flex-col bg-gray-100 text-gray-700 overflow-x-hidden font-sans main min-h-screen">
           <CartProvider>
             <Header />
-            <main className="flex-1  mx-auto py-8">
+            <main className="flex-1 xl:w-1/2 xl:mx-auto py-8">
               {children}
             </main>
             <Footer />

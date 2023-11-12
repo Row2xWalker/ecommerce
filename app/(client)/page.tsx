@@ -1,5 +1,6 @@
 "use client"
 import { ProductLists } from '@/components'
+import Hero from '@components/Hero';
 import Loader from '@components/Loader';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react'
@@ -41,6 +42,10 @@ export default function Home() {
   
   return (
     <>
+      {
+        searchQuery==='' ? <Hero />: `${filteredProducts.length} items found. `
+      }
+      
       {isLoading ?
         (<Loader />)
         : (<ProductLists products={filteredProducts!==null?filteredProducts: products} />)

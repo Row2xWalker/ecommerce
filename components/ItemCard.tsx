@@ -3,23 +3,18 @@ import { useCartContext } from '@contexts/CartContext'
 import Image from 'next/image'
 import Link from 'next/link'
 import AddToCartButton from './AddToCartButton'
-import { CldImage } from 'next-cloudinary';
+// import { CldImage } from 'next-cloudinary';
 
 const ItemCard = ({ productDetails }) => {
 
   const { isInCart, addToCart } = useCartContext();
-  const extractImage = (imageUrl) =>{
-    const newUrl = imageUrl.split("ecommerce_images/")
-    return "ecommerce_images/"+newUrl[1];
-  }
   return (
     <div className="transition duration-300 transform hover:shadow-md my-4">
-      <div className="hover:cursor-pointer group" >
+      <div className="mb-4 hover:cursor-pointer group" >
         <Link href={`products?id=${productDetails._id}`}>
-          <div className="group-hover:scale-105 pt-4 transition-transform">
-            {/* <Image src={productDetails.images[0]} alt="displayProduct" fill={true} sizes="(min-width: 500px) 50vw, 100vw" /> */}
-            <div className="h-72 w-72 relative">
-              <CldImage src={extractImage(productDetails.images[0])} alt="displayProduct" fill sizes='100'/>
+          <div className=" pt-4 transition-transform">
+            <div className="w-full h-72 relative">
+              <Image src={productDetails.images[0]} alt="displayProduct" fill sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'/>
              </div>
           </div>
           <div className="pt-4 ">

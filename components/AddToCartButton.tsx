@@ -23,7 +23,7 @@ const AddToCartButton: React.FC<Props> = ({ productItem, localQuantity, isInCart
     const productItemId = productItem._id;
     return (
         <button
-            className="bg-gray-500 text-white p-2 rounded-lg mt-4 shadow-md hover:bg-gray-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105"
+            className="bg-gray-500 text-white p-2 rounded-lg mt-4 shadow-md hover:bg-gray-600 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={() => addToCart(productItem, localQuantity)}
             disabled={isInCart(productItemId)}
         >
