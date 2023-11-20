@@ -11,7 +11,7 @@ export default function MainLayout({
 }) {
 
     const router = useRouter();
-    const [providers, setProviders] = useState<any[]>();
+    const [providers, setProviders] = useState<any>();
 
     const { data: session, status } = useSession({
         required: true,
