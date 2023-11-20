@@ -10,6 +10,7 @@ const ProductPage = ({ params }: { params: any }) => {
         name: "",
         category: "",
         description: "",
+        price:0,
         images: [],
         quantity: 0
     });
@@ -30,6 +31,7 @@ const ProductPage = ({ params }: { params: any }) => {
                 category: data.category,
                 description: data.description,
                 images: data.images,
+                price: data.price,
                 quantity: data.quantity
             })
         };
@@ -59,8 +61,8 @@ const ProductPage = ({ params }: { params: any }) => {
                         <div className="">
                             <h1 className="text-4xl font-bold">{product?.name}</h1>
                             <h1>{product?.category}</h1>
-                            <h1 className="text-xl font-bold">Php {product?.quantity}</h1>
-                            <h1><span className="font-bold">In stock:</span> {product?.sold}</h1>
+                            <h1 className="text-xl font-bold">Php {product?.price}</h1>
+                            <h1><span className="font-bold">In stock:</span> {product?.quantity}</h1>
                             <h1>{product?.description}</h1>
                             <button className="border bg-gray-300 p-2 rounded-lg mt-4" onClick={handleEdit}>Edit Product</button>
                         </div>
