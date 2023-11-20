@@ -1,8 +1,6 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import CircumIcon from "@klarr-agency/circum-icons-react";
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { AiOutlineDelete } from 'react-icons/ai';
 const Cart = ({ item, removeFromCart, increaseQuantity, decreaseQuantity, }) => {
 
@@ -10,12 +8,12 @@ const Cart = ({ item, removeFromCart, increaseQuantity, decreaseQuantity, }) => 
         <div className="flex py-2" key={item.cartItem._id}>
             <div className="w-full">
                 <div className="flex">
-                    <div className="relative h-40 w-full md:w-1/3">
-                        <Image src={item.cartItem.images[0]} alt="cartlist-item" fill sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw' className="rounded" />
+                    <div className="relative h-32 w-32">
+                        <Image src={item.cartItem.images[0]} alt="cartlist-item" fill sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw' className="border object-fit rounded" />
                     </div>
-                    <div className="pl-4 md:pl-8 pt-2 md:pt-4 flex flex-col gap-2 w-full">
+                    <div className="pl-4 md:pl-4 pt-2 md:pt-4 flex flex-col gap-2 w-full">
                         <Link href={`products?id=${item.cartItem._id}`}>
-                            <span className="font-bold hover:underline hover:text-blue-500 ">{item.cartItem.name}</span>
+                            <span className="font-bold hover:underline hover:text-blue-500 break-normal ">{item.cartItem.name}</span>
                         </Link>
                         <span><span className="text-xl"><span>&#8369;</span></span>{item.cartItem.price}</span>
                         <div className="flex md:hidden">

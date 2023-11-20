@@ -1,19 +1,41 @@
-const mongoose = require("mongoose");
+import { Schema, model, models } from "mongoose";
 
-const orderSchema = new mongoose.Schema({
-  products: [
+const orderSchema = new Schema({
+  cartItems: [
     {
-      product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+      product: { type: Schema.Types.ObjectId, ref: "Product" },
       quantity: Number,
+      total: Number
     },
   ],
   totalAmount: Number,
   status: { type: String, enum: ["pending", "completed"], default: "pending" },
-  shipping: { type: mongoose.Schema.Types.ObjectId, ref: "Shipping" }, // Reference to the Shipping model
-  payment: { type: mongoose.Schema.Types.ObjectId, ref: "Payment" }, // Reference to the Payment model
+  shipping: {
+    fullName: String,
+    phone: String,
+    address: String,
+    postalCode: String,
+    city: String,
+    region: String
+  }, 
+  payment: {
+    paymentMethod: String, 
+    paymentIntentId: String,
+    amount: Number,
+    status: {
+      type: String,
+      enum: ["pending", "completed", "failed"],
+      default: "pending",
+    },
+    date: {
+      type: Date,
+      required: true,
+      default: Date.now,
+    }
+  }, // Reference to the Payment model
   // Add more fields as needed
 });
 
-const Order = mongoose.model("Order", orderSchema);
+const Order = models.Order || model("Order", orderSchema);
 
 module.exports = Order;

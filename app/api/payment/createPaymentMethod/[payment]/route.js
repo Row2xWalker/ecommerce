@@ -1,5 +1,6 @@
-export const POST = async (req) =>{
+export const POST = async (req, {params}) =>{
     const {name,email,phone} = await req.json();
+    const payment = params.payment
     // Creating our options for the Create a Payment Intent Call
     const optionsIntent = {
       method: "POST",
@@ -13,7 +14,7 @@ export const POST = async (req) =>{
       body: JSON.stringify({
         data: {
              attributes: {
-                      type: "gcash",
+                      type: payment,
                //    "details": {
                //         "card_number": "4343434343434345",
                //         "exp_month": 1,

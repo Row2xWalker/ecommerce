@@ -19,7 +19,7 @@ const ItemCard = ({ productDetails }) => {
           </div>
           <div className="pt-4 ">
             <h2 className="text-xl font-bold group-hover:text-gray-700 group-hover:underline ">{productDetails.name}</h2>
-            <p className="group-hover:text-gray-700  group-hover:underline "><span>&#8369; </span>{productDetails.price}</p>
+            <p className="group-hover:text-gray-700  group-hover:underline "><span>&#8369;</span> {productDetails.price}</p>
           </div>
         </Link>
       </div>

@@ -1,28 +1,32 @@
-"use client "
+"use client"
 
-import { useEffect, useState } from "react";
-import iFrame from "./PaymentIframe";
-import PaymentIframe from "./PaymentIframe";
+import { useCartContext } from '@contexts/CartContext';
+
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+type PaymentProps={
+  amount: number,
+  description: string,
+  method: string,
+  billing:{}
+}
 
-const GCash = ({ amount, description }) => {
+
+type orderDetailProps={
+  cartItem: {},
+  cart_quantity: number,
+  total: number
+}
+
+const Payment = ({ amount, description, method, billing}: PaymentProps) => {
+  
+    const {cartItems, calculateSubTotal} = useCartContext();
+
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
     const router = useRouter();
-    const [payProcess, setPayProcess] = useState("");
-    const [paymentStatus, setPaymentStatus] = useState("");
-    const [isModalOpen, setModalOpen] = useState(false);
-    const [modalUrl, setModalUrl] = useState("")
-
-    const openModal = () => setModalOpen(true);
-    const closeModal = () => setModalOpen(false);
-
-
-
-
-
     
     // Function to trigger payment process
     const createPayment = async () => {
@@ -34,10 +38,9 @@ const GCash = ({ amount, description }) => {
           })
           const paymentIntentData = await paymentIntent.json();
           const paymentIntentClientKey = paymentIntentData.data.attributes.client_key
-        
           //Create Payment Method
 
-          const paymentMethod = await fetch('api/payment/createPaymentMethod', {
+          const paymentMethod = await fetch(`api/payment/createPaymentMethod/${method}`, {
             method: 'POST',
             body: JSON.stringify({name, phone, email})
           })
@@ -58,45 +61,45 @@ const GCash = ({ amount, description }) => {
         }catch(err){
           throw new Error('Failed to create payment'+ err.message);
         }
-        
     }
 
-  // Function to Listen to the Source in the Front End
-  const listenToPayment = async (paymentIntentId) => {
-    let i = 5;
-    for (let i = 5; i > 0; i--) {
-      setPaymentStatus(`Listening to Payment in ${i}`)
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      if (i == 1) {
-        const data = await fetch('/api/payment/getPaymentIntent/' + paymentIntentId)
-        const jsonData = await data.json();
-
-        if (jsonData.data?.attributes.status === "succeeded") {
-           setPaymentStatus("Payment Success")
-           closeModal();
-        }
-        // else if (jsonData.data?.attributes.status === "paid") {
-            // ***failed****
-        // }
-        else {
-          i = 5;
-          setPayProcess(jsonData.data?.attributes.status)
+    const saveOrder = async() =>{
+      const orderDetails = {
+        cartItems : cartItems.map((item:orderDetailProps)=>({
+          product: item.cartItem,
+          quantity : item.cart_quantity,
+          total : item.total
+        })),
+        totalAmount: calculateSubTotal(),
+        status: "pending",
+        shipping: billing,
+        payment: {
+          paymentMethod: method,
+          status: "pending",
+          amount: calculateSubTotal()
         }
       }
+      try{
+        const order = await fetch(`api/orders/new`, {
+          method: 'POST',
+          body: JSON.stringify(orderDetails)
+        })
+        const orderData = await order.json()
+        return new Response(JSON.stringify(orderData))
+      }catch(err){
+        throw new Error('Failed to Save Order'+ err.message);
+      }
     }
-  }
-
   const onSubmit = async (e: Event) => {
     e.preventDefault();
+    const order = await saveOrder();
+    const orderData = await order.json();
     const payment = await createPayment();
     const paymentData = await payment.json();
-
     const paymentIntentStatus = paymentData.data.attributes.status;
     if (paymentIntentStatus === 'awaiting_next_action') {
       // Render your modal for 3D Secure Authentication since next_action has a value. You can access the next action via paymentIntent.attributes.next_action.
       router.push(paymentData.data.attributes.next_action.redirect.url);
-      // openModal();
-      // listenToPayment(paymentData.data.id) 
     } else if (paymentIntentStatus === 'succeeded') {
       // You already received your customer's payment. You can show a success message from this condition.
     } else if(paymentIntentStatus === 'awaiting_payment_method') {
@@ -108,11 +111,10 @@ const GCash = ({ amount, description }) => {
 
   return (
     <div>
-      {/* {isModalOpen && <PaymentIframe modalUrl={modalUrl} />} */}
       <form className="px-8 pt-6 pb-8 mb-4" onSubmit={onSubmit}>
         <div className="flex gap-2">
           <div className="mb-4">
-            <label className="inline-block text-gray-700 font-bold mb-2" htmlFor="customer-name">Customer Name:</label>
+            <label className="inline-block text-gray-700 font-bold mb-2" htmlFor="customer-name">Full Name:</label>
             <input
               id="customer-name"
               placeholder="Full Name"
@@ -155,4 +157,4 @@ const GCash = ({ amount, description }) => {
   )
 }
 
-export default GCash
+export default Payment

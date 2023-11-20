@@ -1,11 +1,11 @@
-const ShippingForm = ({handleShippingFormSubmit, handleShippingFormChange}) => {
+const ShippingForm = ({handleShippingFormChange}) => {
 
   const inputStyle = "appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
   return (
     <div>
-        <h1 className="text-xl pb-4">Delivery Information</h1>
-        <form className="px-8 pt-6 pb-8 mb-4" onSubmit={handleShippingFormSubmit}>
-          <div className="flex gap-2">
+        <h1 className="text-xl pb-4 pl-4">Delivery Information</h1>
+        <form className="px-8 pt-6 pb-8 mb-4">
+          <div className="md:flex gap-2">
             <div className="mb-4">
               <label htmlFor="fullName" className="inline-block text-gray-700 font-bold mb-2">Full Name</label>
               <input
@@ -41,7 +41,7 @@ const ShippingForm = ({handleShippingFormSubmit, handleShippingFormChange}) => {
               onChange={handleShippingFormChange}
               />
           </div>  
-          <div className="flex gap-2">
+          <div className="md:flex gap-2">
             <div className="mb-4">
               <label htmlFor="postalCode" className="inline-block text-gray-700 font-bold mb-2">Postal Code</label>
               <input
@@ -76,9 +76,6 @@ const ShippingForm = ({handleShippingFormSubmit, handleShippingFormChange}) => {
             onChange={handleShippingFormChange}
             />
           </div>
-          <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Proceed to Payment
-        </button>
         </form>
     </div>
   )
