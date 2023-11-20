@@ -1,9 +1,7 @@
 "use client"
-import { Form } from "@components";
 import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { ProductProps } from '@types';
 const ProductPage = ({ params }: { params: any }) => {
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -39,7 +37,7 @@ const ProductPage = ({ params }: { params: any }) => {
         if (params?.id) fetchProductDetails();
     }, [params.id])
 
-    const handleImageClick = (src: string) => {
+    const handleImageClick = (src: any) => {
         setRenderImage(src)
     }
 

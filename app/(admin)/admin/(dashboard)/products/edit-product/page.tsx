@@ -43,7 +43,7 @@ const EditProduct = () => {
         if (productId) fetchProductDetails();
     }, [productId])
 
-    const handleOnChange = (changeEvent: Event) => {
+    const handleOnChange = (changeEvent: any) => {
         for (const file of changeEvent.target.files) {
             const reader = new FileReader();
             reader.readAsDataURL(file)
