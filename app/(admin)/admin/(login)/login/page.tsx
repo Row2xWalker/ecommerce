@@ -27,9 +27,7 @@ const LoginPage = () => {
   return (
 
     <div className="flex mx-auto h-screen items-center justify-center">
-      <button onClick={signOut({
-        callbackUrl: `${window.location.origin}/admin`
-      })}> Sign Out</button>
+      <button onClick={()=>signOut()}> Sign Out</button>
     </div>
   )
 }

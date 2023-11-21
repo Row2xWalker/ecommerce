@@ -55,9 +55,7 @@ export default function MainLayout({
                         </li>
                         <li>
                             <button className="hover:bg-gray-100 hover:text-black p-2 rounded block text-sm text-white w-full"
-                                onClick={() => signOut({
-                                    callbackUrl: `/admin`
-                                })}>
+                                onClick={() => signOut()}>
                                 Logout
                             </button>
                         </li>
