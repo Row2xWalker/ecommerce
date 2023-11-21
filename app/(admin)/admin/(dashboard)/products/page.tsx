@@ -1,6 +1,6 @@
 "use client"
 
-import AdminProducts from '@components/AdminProducts';
+import AdminProducts from '@/components/AdminProducts';
 import DataTable from '@components/DataTable';
 import Image from 'next/image';
 import Link from 'next/link';
