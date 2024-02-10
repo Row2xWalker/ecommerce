@@ -45,13 +45,11 @@ const CartPage = () => {
             </section>
             <section className="lg:sticky top-8">
                 <div className="w-full bg-white shadow-md rounded-md p-4 md:p-8 max-h-[calc(100vh-200px)] overflow-y-auto">
-                    <h2 className="font-semibold text-xl mb-2">Order Instructions</h2>
-                    <textarea className="border rounded-md w-full h-20 resize-none px-2 mb-4"></textarea>
                     <div className="mb-4">
-                        <span className="font-semibold text-xl">Subtotal: </span><span>&#8369;</span>{subTotal}
+                        <span className="font-semibold text-xl">Total: </span><span>&#8369;</span>{subTotal}
                     </div>
                     <div className="flex">
-                        <button onClick={onCheckOut} className="bg-blue-500 text-white h-12 px-8 border rounded-md transition duration-300 ease-in-out hover:bg-blue-600">
+                        <button onClick={onCheckOut} className="bg-blue-500 text-white h-12 w-full px-8 border rounded-md transition duration-300 ease-in-out hover:bg-blue-600">
                             Check Out
                         </button>
                     </div>

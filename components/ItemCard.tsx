@@ -9,7 +9,7 @@ const ItemCard = ({ productDetails }) => {
 
   const { isInCart, addToCart } = useCartContext();
   return (
-    <div className="transition duration-300 transform hover:shadow-md my-4">
+    <div className="transition duration-300 transform my-4">
       <div className="mb-4 hover:cursor-pointer group" >
         <Link href={`products?id=${productDetails._id}`}>
           <div className=" pt-4 transition-transform">

@@ -79,7 +79,10 @@ const ProductPage = () => {
   }
 
   return (
-    <div className="w-2/3 mx-auto">
+    <div className="">
+      <header>
+        <h1 className="text-lg font-bold">Products</h1>
+      </header>
       <DataTable data={products} columns={columns} />
       <Link href="/admin/products/add-product">
         <button className="border bg-gray-300 p-2 rounded-lg mt-4">

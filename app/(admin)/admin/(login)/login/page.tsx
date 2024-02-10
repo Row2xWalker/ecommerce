@@ -25,7 +25,6 @@ const LoginPage = () => {
 
 
   return (
-
     <div className="flex mx-auto h-screen items-center justify-center">
       <button onClick={()=>signOut()}> Sign Out</button>
     </div>

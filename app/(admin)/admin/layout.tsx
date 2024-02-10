@@ -1,21 +1,19 @@
 'use client';
 import '@styles/globals.css'
 import { Session } from 'next-auth';
-import  SessionProvider  from "@components/Provider";
+import  Provider  from "@components/Provider";
 
 const RootLayout = ({
-  children,
-  session
-}: {
-  children: React.ReactElement,
-  session: Session
+  children
+}:{
+  children:React.ReactElement
 }) => {
   return (
     <html lang="en">
       <body className="main">
-        <SessionProvider>
+        <Provider>
           {children}
-        </SessionProvider>
+          </Provider>
       </body>
     </html>
   )

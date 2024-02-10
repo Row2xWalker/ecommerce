@@ -11,7 +11,7 @@ const Header = () => {
     <header className="bg-gray-900 h-24 text-white">
       <div className="2xl:w-1/2 flex items-center justify-between mx-auto h-full px-4">
         <Link href="/">
-          <span className={`text-xl font-bold ${searchBarToggle ? "md:block hidden" : null}`}>JnP Store</span>
+          <span className={`text-4xl font-bold ${searchBarToggle ? "md:block hidden" : null}`}>JnP Store</span>
         </Link>
         <SearchBar toggle={searchBarToggle ? "w-full md:w-1/2 " : "md:block w-1/2 hidden"} />
         <nav className="hidden md:flex items-center space-x-4">
