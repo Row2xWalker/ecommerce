@@ -1,5 +1,5 @@
 "use client"
-import { useCartContext } from '@contexts/CartContext'
+import { useCartContext } from '@/contexts/CartContext'
 import Image from 'next/image'
 import Link from 'next/link'
 import AddToCartButton from './AddToCartButton'

@@ -2,8 +2,8 @@
 import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState, } from "react";
-import { useCartContext } from '@contexts/CartContext'
-import AddToCartButton from "@components/AddToCartButton";
+import { useCartContext } from '@/contexts/CartContext'
+import AddToCartButton from "@/components/AddToCartButton";
 
 
 const ProductPage = () => {

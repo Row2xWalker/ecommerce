@@ -1,11 +1,11 @@
 "use client"
 
-import { useCartContext } from '@contexts/CartContext';
+import { useCartContext } from '@/contexts/CartContext';
 import { useState } from 'react';
-import Payment from '@components/payment/Payment';
-import ShippingForm from '@components/ShippingForm';
+import Payment from '@/components/payment/Payment';
+import ShippingForm from '@/components/ShippingForm';
 import Image from 'next/image';
-import PaymentSelection from '@components/payment/PaymentSelection';
+import PaymentSelection from '@/components/payment/PaymentSelection';
 const CheckOutPage = () => {
     const {cartItems, calculateSubTotal} = useCartContext();
     const totalAmount = calculateSubTotal();

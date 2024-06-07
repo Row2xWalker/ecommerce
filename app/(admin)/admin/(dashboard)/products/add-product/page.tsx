@@ -1,6 +1,6 @@
 "use client"
 
-import { Form } from "@components"
+import { Form } from "@/components"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 

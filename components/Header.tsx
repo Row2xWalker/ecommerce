@@ -1,7 +1,7 @@
 "use client"
 import SearchBar from './SearchBar'
 import Link from 'next/link'
-import { useCartContext } from '@contexts/CartContext'
+import  {useCartContext}  from '@/contexts/CartContext'
 import { AiOutlineSearch, AiOutlineShoppingCart } from 'react-icons/ai'
 import { useState } from 'react'
 const Header = () => {

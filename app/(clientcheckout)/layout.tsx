@@ -1,4 +1,4 @@
-import CartProvider from "@contexts/CartContext"
+import CartProvider from "@/contexts/CartContext"
 
 import '../../styles/globals.css'
 export const metadata = {

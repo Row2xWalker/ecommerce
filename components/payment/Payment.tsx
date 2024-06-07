@@ -1,6 +1,6 @@
 "use client"
 
-import { useCartContext } from '@contexts/CartContext';
+import { useCartContext } from '@/contexts/CartContext';
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";

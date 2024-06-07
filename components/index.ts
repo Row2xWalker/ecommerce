@@ -6,7 +6,7 @@ import ItemCard from "./ItemCard";
 import Footer from "./Footer";
 import AdminSideBarLink from "./AdminSideBarLink";
 import AdminAddProduct from "./AdminAddProduct";
-import Form from "./Form";
+import Form from "./LocalForm";
 export {
     Header,
     SearchBar,

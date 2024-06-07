@@ -1,6 +1,7 @@
-import { Header, Footer } from '@/components'
+import  Header from '@/components/Header'
+import  Footer  from '@/components/Footer'
 import '../../styles/globals.css'
-import CartProvider from '@contexts/CartContext'
+import CartProvider from '@/contexts/CartContext'
 
 export const metadata = {
   title: 'Ecommerce',

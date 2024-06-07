@@ -1,9 +1,9 @@
 "use client"
 
-import Cart from '@components/Cart';
+import Cart from '@/components/Cart';
 import { useSearchParams, useRouter } from 'next/navigation';
 import React, { useEffect, useLayoutEffect, useState } from 'react'
-import { useCartContext } from '@contexts/CartContext';
+import { useCartContext } from '@/contexts/CartContext';
 
 const CartPage = () => {
     const router = useRouter();

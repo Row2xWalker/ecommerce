@@ -1,16 +1,43 @@
 "use client"
-import Product from '@models/product';
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, PropsWithChildren  } from 'react';
 
-const CartContext = createContext();
+interface CartItem {
+    _id: string;
+    name: string;
+    category: string;
+    description: string;
+    images: string[];
+    quantity: number;
+    price: number;
+  }
+  
+  interface CartItemWithQuantity {
+    cartItem: CartItem;
+    cart_quantity: number;
+    total: number;
+  }
+  
+  interface CartContextValue {
+    cartItems: CartItemWithQuantity[];
+    addToCart: Function,
+    isInCart: Function,
+    removeFromCart: Function,
+    increaseQuantity: Function,
+    decreaseQuantity: Function,
+    handleQuantityChange: Function,
+    calculateSubTotal: Function
+  }
 
+const CartContext = createContext<CartContextValue| undefined>(undefined);
+interface CartProviderProps {
+  children : React.ReactNode
+}
 export function useCartContext() {
     return useContext(CartContext);
 }
 
-export function CartProvider({ children }) {
+ export function CartProvider ({ children }: CartProviderProps) {
     const [cartItems, setCartItems] = useState([]);
-
     // Fetch cart data from local storage after the component mounts
     useEffect(() => {
         const cartData = localStorage.getItem('Cart');

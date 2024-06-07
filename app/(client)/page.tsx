@@ -1,7 +1,7 @@
 "use client"
-import { ProductLists } from '@/components'
-import Hero from '@components/Hero';
-import Loader from '@components/Loader';
+import ProductLists  from '@/components/ProductLists'
+import Hero from '@/components/Hero';
+import Loader from '@/components/Loader';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react'
 
