@@ -1,14 +1,14 @@
 "use client"
 
 import AdminProducts from '@/components/AdminProducts';
-import DataTable from '@components/DataTable';
+import DataTable from '@/components/DataTable';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { Button } from "@/components/ui/button"
-import { Input } from '@components/ui/input';
+import { Input } from '@/components/ui/input';
 import {
   Dialog,
   DialogContent,
@@ -18,33 +18,35 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog" 
-import { Label } from '@components/ui/label';
-import { Textarea } from '@components/ui/textarea';
-import { Form } from '@components';
-import LocalForm from '@components/LocalForm';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import LocalForm from '@/components/LocalForm';
 
 const ProductPage = () => {
+  
+  const router = useRouter();
   const columns = [
     {
       header: 'Image',
       accessorFn: row => row.images[0],
-      cell: image => <Image src={image.getValue()} width={60} height={60} alt="Product Image" className="mx-auto" />
+      cell: image => <div className="w-16 h-16 relative mx-auto"><Image src={image.getValue()} fill sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw' alt="Product Image"/> </div>
     },
     {
       header: 'Name',
-      accessorKey: 'name'
+      accessorKey: 'name',
     },
     {
       header: 'Category',
-      accessorKey: 'category'
+      accessorKey: 'category',
     },
     {
       header: 'Description',
-      accessorKey: 'description'
+      accessorFn: row => row.description,
+      cell: row => <div>{(row.getValue().length>75?row.getValue().substr(0,75)+"...":row.getValue())}</div>
     },
     {
       header: 'Quantity',
-      accessorKey: 'quantity'
+      accessorKey: 'stocks_quantity'
     },
     {
       header: 'Price',
@@ -52,7 +54,7 @@ const ProductPage = () => {
     },
     {
       header: 'Sold',
-      accessorKey: 'sold'
+      accessorKey: 'sold',
     },
     {
       header: 'Action',
@@ -62,7 +64,7 @@ const ProductPage = () => {
   ]
 
   const [products, setProducts] = useState([])
-  
+  const [open, setOpen] = useState(false)
   const [submitting, setIsSubmitting] = useState(false);
   const [imageSrc, setImageSrc] = useState([]);
   const [product, setProduct] = useState({
@@ -70,7 +72,7 @@ const ProductPage = () => {
     category: "",
     description: "",
     images: [],
-    quantity: 0,
+    stocks_quantity: 0,
     price: 0
   })
   useEffect(() => {
@@ -145,14 +147,27 @@ const ProductPage = () => {
           name: product.name,
           category: product.category,
           description: product.description,
-          images: ["http://res.cloudinary.com/digbmnogn/image/upload/v1688784299/ecommerce_images/ytrj4qpt3xpmgatzkive.jpg"],
-          stocks_quantity: product.quantity,
+          images: product.images,
+          stocks_quantity: product.stocks_quantity,
           price: product.price
         })
       });
 
       if (response.ok) {
-        router.push('/admin/products');
+        setProduct({
+          name: "",
+          category: "",
+          description: "",
+          images: [],
+          stocks_quantity: 0,
+          price: 0
+        })
+        setImageSrc([])
+        const response = await fetch('/api/product');
+        const data = await response.json();
+        setProducts(data)
+        setOpen(false)
+        router.refresh();
       }
     } catch (error) {
       console.log(error);
@@ -162,40 +177,47 @@ const ProductPage = () => {
   }
 
   return (
-    <div className="">
+    <>
       <header>
         <h1 className="text-lg font-bold">Products</h1>
       </header>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button variant="secondary">Add Product</Button>
-        </DialogTrigger>
-        <DialogContent className="text-white"  
-          onInteractOutside={(e) => {
-            e.preventDefault();
-          }}
-        >
-          <DialogHeader>
-            <DialogTitle >Add Product</DialogTitle>
-          </DialogHeader>
-          <LocalForm
-            type="Add"
-            product={product}
-            setProduct={setProduct}
-            handleSubmit={addProduct}
-            submitting={submitting}
-            handleOnChange={handleOnChange}
-            handleRemove={handleRemove}
-            imageSrc={imageSrc}
-          />
-           <DialogFooter>
-            {/* <Button type="submit" onSubmit={addProduct()}>Add</Button> */}
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <div className="flex justify-end">
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger>
+            <Button variant="secondary" onClick={()=>{ setProduct({
+                name: "",
+                category: "",
+                description: "",
+                images: [],
+                stocks_quantity: 0,
+                price: 0
+              })
+              setImageSrc([])}}>Add Product</Button>
+          </DialogTrigger>
+          <DialogContent className="text-white"  
+            onInteractOutside={(e) => {
+              e.preventDefault();
+            }}
+          >
+            <DialogHeader>
+              <DialogTitle >Add Product</DialogTitle>
+            </DialogHeader>
+            <LocalForm
+              type="Add"
+              product={product}
+              setProduct={setProduct}
+              handleSubmit={addProduct}
+              submitting={submitting}
+              handleOnChange={handleOnChange}
+              handleRemove={handleRemove}
+              imageSrc={imageSrc}
+            />
+          </DialogContent>
+        </Dialog>
+      </div>
       <DataTable data={products} columns={columns} />
       
-    </div>
+    </>
   )
 }
 

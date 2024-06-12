@@ -1,5 +1,5 @@
-import { connectToDB } from "@utils/database";
-import Product from "@models/product";
+import { connectToDB } from "@/utils/database";
+import Product from "@/models/product";
 
 export const POST = async (req) => {
   const { name, category, description, images, stocks_quantity, price } =

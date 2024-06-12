@@ -1,11 +1,19 @@
 
 
-import { IProductResponse } from "@types";
+import { IProductResponse } from "@/types";
 import Image from "next/image";
 
-import { Label } from '@components/ui/label';
-import { Input } from '@components/ui/input';
-import { Textarea } from '@components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+  } from "@/components/ui/carousel"
+import { CloseCircleOutlined } from "@ant-design/icons";
 
 const LocalForm = ({ type, product, submitting, setProduct, handleSubmit, handleOnChange, handleRemove, imageSrc }: IProductResponse) => {
     return (
@@ -22,6 +30,7 @@ const LocalForm = ({ type, product, submitting, setProduct, handleSubmit, handle
                         placeholder="name"
                         value={product.name}
                         onChange={(e) => setProduct({ ...product, name: e.target.value })}
+                        required
                     />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
@@ -34,9 +43,9 @@ const LocalForm = ({ type, product, submitting, setProduct, handleSubmit, handle
                         placeholder="category"
                         value={product.category}
                         onChange={(e) => setProduct({ ...product, category: e.target.value })}
+                        required
                     />
                 </div>
-
                 <div className="grid grid-cols-4 items-center gap-4">
                     <Label htmlFor="description" className="text-right">
                         Description
@@ -47,6 +56,7 @@ const LocalForm = ({ type, product, submitting, setProduct, handleSubmit, handle
                         placeholder="Description"
                         value={product.description}
                         onChange={(e) => setProduct({ ...product, description: e.target.value })}
+                        required
                     />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
@@ -60,6 +70,7 @@ const LocalForm = ({ type, product, submitting, setProduct, handleSubmit, handle
                         placeholder="Price"
                         value={product.price}
                         onChange={(e) => setProduct({ ...product, price: e.target.value })}
+                        required
                     />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
@@ -71,38 +82,38 @@ const LocalForm = ({ type, product, submitting, setProduct, handleSubmit, handle
                         type="number"
                         className="col-span-3"
                         placeholder="Quantity"
-                        value={product.quantity}
-                        onChange={(e) => setProduct({ ...product, quantity: e.target.value })}
+                        value={product.stocks_quantity}
+                        onChange={(e) => setProduct({ ...product, stocks_quantity: e.target.value })}
+                        required
                     />
                 </div>
-                {/* <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="quantity" className="text-right">
-                        Quantity
+                <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="images" className="col-span-2 bg-white text-black p-4 border border-white rounded-md mx-auto cursor-pointer">
+                        Upload Images
                     </Label>
                     <Input
-                        id="quantity"
+                        id="images"
                         type="file"
-                        name="file"
+                        name="images"
                         multiple
                         onChange={handleOnChange}
-                        className="col-span-3"
-                        placeholder="Quantity"
-                        value={product.quantity}
+                        className="hidden"
+                        value={product.images || null}
                     />
-                    <div className="relative w-[600px]">
-                        <nav className="flex gap-4">
+                </div>
+                <div className="grid grid-cols-4  gap-4">
                             {imageSrc.length > 0 ?
                                 imageSrc.map((img, index) => (
-                                    <li className=" list-none w-[150px] text-right" key={index}>
-                                        <span className="bg-white border border-black rounded-2xl px-2 inline-block hover:cursor-pointer" onClick={() => handleRemove(img)}>X</span>
+                                    <li className="list-none text-right" key={index}>
+                                        <div className="relative">
+                                            <CloseCircleOutlined className="absolute top-0 right-0 bg-black rounded-full inline-block hover:cursor-pointer " onClick={() => handleRemove(img)}/>
+                                        </div>
                                         <Image src={img} alt="imageToBeUpload" height={150} width={150} className="" />
                                     </li>
                                 )) : null
                             }
-                        </nav>
-                    </div>
-                </div> */}
-                <button type="submit" className="border bg-gray-300 p-2 rounded-lg mt-4 w-1/5">
+                </div>
+                <button type="submit" className="border bg-gray-700 p-2 rounded-lg mt-4 w-1/5">
                     {submitting ? `${type}ing...` : type}
                 </button>
             </form>

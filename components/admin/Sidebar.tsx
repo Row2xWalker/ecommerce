@@ -1,6 +1,6 @@
 import React from 'react'
 import { signOut } from 'next-auth/react'
-import { DASHBOARD_SIDEBAR_LINKS, DASHBOARD_SIDEBAR_BOTTOM_LINKS } from '@lib/constants'
+import { DASHBOARD_SIDEBAR_LINKS, DASHBOARD_SIDEBAR_BOTTOM_LINKS } from '@/lib/constants'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import classNames from 'classnames'

@@ -1,7 +1,7 @@
 'use client';
-import '@styles/globals.css'
+import '@/styles/globals.css'
 import { Session } from 'next-auth';
-import  Provider  from "@components/Provider";
+import  Provider  from "@/components/Provider";
 
 const RootLayout = ({
   children

@@ -10,6 +10,7 @@ import {
 
 
 import React, { useState } from 'react'
+import { Input } from './ui/input'
 
 const DataTable = ({ data, columns }) => {
 
@@ -28,12 +29,22 @@ const DataTable = ({ data, columns }) => {
             globalFilter: filtering,
         },
         onSortingChange: setSorting,
-        onGlobalFilterChange: setFiltering,
+        onGlobalFilterChange: setFiltering
     })
 
     return (
-        <div>
-            <table className="w-full">
+        <div className="w-full">
+             <div className="flex items-center py-4 text-white">
+                <Input
+                    placeholder="Filter name..."
+                    value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+                    onChange={(event) =>
+                    table.getColumn("name")?.setFilterValue(event.target.value)
+                    }
+                    className="max-w-sm"
+                />
+            </div>
+            <table>
                 <thead className="bg-neutral-700 text-white border border-rounded-md">
                     {table.getHeaderGroups().map(headerGroup => (
                         <tr key={headerGroup.id}>
@@ -41,10 +52,10 @@ const DataTable = ({ data, columns }) => {
                                 <th
                                     key={header.id}
                                     onClick={header.column.getToggleSortingHandler()}
-                                    className="py-4"
+                                    className={`${header.id=="category"||"description"?"w-[300px]":"w-[50px]"} border border-white py-4`}
                                 >
                                     {header.isPlaceholder ? null : (
-                                        <div>
+                                        <div >
                                             {flexRender(
                                                 header.column.columnDef.header,
                                                 header.getContext()
@@ -67,19 +78,20 @@ const DataTable = ({ data, columns }) => {
                 </thead>
                 <tbody>
                     {table.getRowModel().rows.map(row => (
-                        <tr key={row.id} >
+                        <tr key={row.id}>
                             {row.getVisibleCells().map(cell => (
-                                <td className="bg-white text-center py-2" key={cell.id}>
+                                <td className={`bg-white py-2 text-center border`} key={cell.id}>
                                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                 </td>
                             ))}
                         </tr>
                     ))}
                 </tbody>
-            </table >
+            </table>
             <div className="flex items-center space-x-6 lg:space-x-8">
-                <div className="flex-1 text-sm text-muted-foreground">
-                    Shows {table.getRowModel().rows.length.toLocaleString()} out of{" "}
+                <div className="flex-1 text-sm text-muted-foreground"> 
+                    {/* .toLocaleString() */}
+                    Shows {(table.getPageCount()==1?table.getFilteredRowModel().rows.length:(table.getPageCount()==table.getState().pagination.pageIndex+1?table.getFilteredRowModel().rows.length:table.getRowModel().rows.length*(table.getState().pagination.pageIndex +1)))} out of{" "}
                     {table.getFilteredRowModel().rows.length} items.
                 </div>
                 <div className="flex w-[100px] items-center justify-center text-sm font-medium">

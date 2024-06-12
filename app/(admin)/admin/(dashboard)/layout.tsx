@@ -1,8 +1,8 @@
 "use client"
 
-import AdminSideBar from "@components/AdminSideBarLink";
-import Header from "@components/admin/Header";
-import Sidebar from "@components/admin/Sidebar";
+import AdminSideBar from "@/components/AdminSideBarLink";
+import Header from "@/components/admin/Header";
+import Sidebar from "@/components/admin/Sidebar";
 import { getProviders, signOut, signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react"

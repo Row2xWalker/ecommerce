@@ -1,5 +1,5 @@
 "use client"
-import { Form } from '@components';
+import LocalForm   from '@/components/LocalForm';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
@@ -104,7 +104,7 @@ const EditProduct = () => {
     };
 
     return (
-        <Form
+        <LocalForm
             type="Edit"
             product={product}
             setProduct={setProduct}

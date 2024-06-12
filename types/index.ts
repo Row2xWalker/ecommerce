@@ -2,7 +2,7 @@ export interface ProductProps{
     name:string,
     category:string,
     description:string,
-    quantity:number,
+    stocks_quantity:number,
     price:number,
     images?:[string],
     sold?:number

@@ -1,7 +1,7 @@
 import React from 'react'
 import { format } from 'date-fns'
 import Link from 'next/link'
-import { getOrderStatus } from '@lib/helpers'
+import { getOrderStatus } from '@/lib/helpers'
 
 const recentOrderData = [
 	{
